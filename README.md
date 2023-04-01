@@ -15,6 +15,9 @@ The notebooks in `notebooks/` prefixed with `01-data processing.ipynb` and `02-1
 The raw data (corresponding to annotated table columns) can be downloaded using the `download_data()` function in the `helpers` module.
 This will download +/- 500MB of data into the `data` directory. Use the `01-data-preprocessing.ipynb` notebook to preprocess this data. Each column is then represented by a feature vector of dimensions 1x1588. The extracted features per column are based on "paragraph" embeddings (full column), word embeddings (aggregated from each column cell), character count statistics (e.g. average number of "." in a column's cells) and column-level statistics (e.g. column entropy).
 
+##Conversion of Tabular data to parquet
+The notebook `01-0-data_conv_to_parquet.ipynb` helps convert any tabular data into the required parquet format. It takes input as the excel files and saves the parquet files in the directory. This step is useful if you want to retarain your model on your data rather than using a pretrained model.
+
 ## The Sherlock model
 The `SherlockModel` class is specified in the `sherlock.deploy.model` module. This model constitutes a multi-input neural network which specifies a separate network for each feature set (e.g. the word embedding features), concatenates them, and finally adds a few shared layers. Interaction with the model follows the scikit-learn interface, with methods `fit`, `predict` and `predict_proba`.
 
@@ -52,6 +55,7 @@ To cite this work, please use the below bibtex:
     ├── notebooks   <- Notebooks demonstrating data preprocessing and train/test of Sherlock.
         └── 00-use-sherlock-out-of-the-box.ipynb
         └── 01-data-preprocessing.ipynb
+        └── 01-0-data_conv_to_parquet.ipynb
         └── 02-1-train-and-test-sherlock.ipynb
         └── 02-2-train-and-test-sherlock-rf-ensemble.ipynb
         └── 03-train-paragraph-vector-features-optional.ipynb
